@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,json}\"",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -18,7 +19,6 @@
     "react-icons": "^5.0.1"
   },
   "devDependencies": {
-    "@rocketseat/eslint-config": "^2.2.2",
     "@types/node": "^20.11.30",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
@@ -27,6 +27,9 @@
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.4.38",

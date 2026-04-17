@@ -2,25 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
-  width: 100%;
-  font-family: "Poppins", sans-serif;
-  /* font-family: "Ubuntu", sans-serif; */
-  /*   
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
+@layer base {
+  :root,
+  [data-theme='dark'] {
+    --bg: 220 14% 10%;
+    --bg-elevated: 220 12% 14%;
+    --surface: 220 11% 17%;
+    --border: 220 10% 24%;
+    --border-hover: 220 10% 34%;
+    --fg: 210 17% 93%;
+    --fg-muted: 220 10% 68%;
+    --fg-subtle: 220 10% 50%;
+    --accent: 252 88% 70%;
+    --accent-2: 205 95% 68%;
+  }
+
+  [data-theme='light'] {
+    --bg: 220 22% 97%;
+    --bg-elevated: 0 0% 100%;
+    --surface: 220 16% 95%;
+    --border: 220 13% 86%;
+    --border-hover: 220 13% 68%;
+    --fg: 220 30% 10%;
+    --fg-muted: 220 12% 38%;
+    --fg-subtle: 220 10% 52%;
+    --accent: 252 80% 58%;
+    --accent-2: 205 90% 50%;
+  }
+
+  html {
+    font-family: Inter, system-ui, sans-serif;
+    background-color: hsl(var(--bg));
+    color: hsl(var(--fg));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: hsl(var(--bg));
+    color: hsl(var(--fg));
+  }
+
+  ::selection {
+    background: hsl(var(--accent) / 0.35);
+    color: hsl(var(--fg));
+  }
 }
 
-#root {
-  width: 100%;
-}
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--accent)) 0%,
+      hsl(var(--accent-2)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 
-body {
-  width: 100%;
-  display: flex;
-  min-width: 320px;
-  min-height: 100vh;
+  .ring-gradient {
+    background:
+      linear-gradient(hsl(var(--bg-elevated)), hsl(var(--bg-elevated)))
+        padding-box,
+      linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-2)))
+        border-box;
+    border: 1px solid transparent;
+  }
 }

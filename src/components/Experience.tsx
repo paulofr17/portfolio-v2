@@ -1,48 +1,96 @@
+import { motion } from "framer-motion"
+import { fadeUp, stagger, viewportOnce } from "@/lib/motion"
+import { SectionHeading } from "./SectionHeading"
+
+type Role = {
+  title: string
+  company: string
+  period: string
+  bullets: string[]
+}
+
+const ROLES: Role[] = [
+  {
+    title: "Salesforce Developer",
+    company: "Accenture",
+    period: "2021 — Present",
+    bullets: [
+      "Developing custom user interfaces with Visualforce Pages and Lightning Web Components",
+      "Writing unit tests and performing code reviews to ensure quality and stability",
+      "Implementing complex business logic, triggers, batch processes and integrations with Apex",
+      "Partnering with stakeholders to gather and translate business requirements into technical specifications"
+    ]
+  },
+  {
+    title: "Data Scientist — Internship",
+    company: "Celfocus",
+    period: "2020 — 2021",
+    bullets: [
+      "Collaborated with the QA team to integrate AI models into existing toolsets",
+      "Built a plugin to automate the identification and classification of vulnerabilities in authentication cookies"
+    ]
+  }
+]
+
+function BulletArrow() {
+  return (
+    <svg aria-hidden viewBox="0 0 12 12" className="mt-[6px] h-3 w-3 flex-shrink-0">
+      <path
+        d="M3 1l5 5-5 5"
+        stroke="url(#arrow-grad)"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <defs>
+        <linearGradient id="arrow-grad" x1="0" y1="0" x2="12" y2="12">
+          <stop offset="0%" stopColor="hsl(var(--accent))" />
+          <stop offset="100%" stopColor="hsl(var(--accent-2))" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}
+
 export function Experience() {
   return (
-    <div className="mx-auto flex w-full max-w-[900px] flex-col gap-2">
-      <h1 className="text-center text-4xl font-bold">Experience</h1>
-      <h2 className="text-center text-lg font-semibold text-red-500">
-        Here&apos;s a summary of my professional experience
-      </h2>
-      <div className="mt-4">
-        <h3 className="text-xl font-semibold">Salesforce Developer</h3>
-        <p className="mt-2 font-rubik font-medium text-gray-600">
-          Accenture | 2021 - Current
-        </p>
-        <ul className="mt-2 list-inside list-disc space-y-1 font-rubik text-sm text-gray-700">
-          <li>
-            Developing custom user interfaces using Visualforce Pages and
-            Lightning Web Components
-          </li>
-          <li>
-            Writing unit tests and performing code reviews to ensure the quality
-            and stability of the solutions developed
-          </li>
-          <li>
-            Implementing complex business logic, triggers, batch processes, and
-            integrations with external systems using Apex
-          </li>
-          <li>
-            Collaborating with stakeholders to gather and analyze business
-            requirements, translating them into technical specifications
-          </li>
-        </ul>
-      </div>
-      <div className="mt-4">
-        <h3 className="text-xl font-semibold">Data Scientist - Internship</h3>
-        <p className="mt-2 font-rubik font-medium text-gray-600">
-          Celfocus | 2020 - 2021
-        </p>
-        <ul className="mt-2 list-inside list-disc font-rubik text-sm text-gray-700">
-          <li>
-            Collaborated with the Quality Assurance (QA) team to integrate AI
-            models into existing toolsets, developing a plugin to automate the
-            process of identification and classification of vulnerabilities in
-            authentication cookies
-          </li>
-        </ul>
-      </div>
+    <div className="mx-auto flex w-full max-w-4xl flex-col gap-14">
+      <SectionHeading number="02" eyebrow="Experience" title="Where I've been building" />
+
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        className="flex flex-col gap-5"
+      >
+        {ROLES.map((role) => (
+          <motion.article
+            key={role.title}
+            variants={fadeUp}
+            className="group rounded-xl border border-border bg-bg-elevated p-6 transition hover:border-border-hover hover:shadow-glow-sm md:p-8"
+          >
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+              <div className="flex flex-col gap-1">
+                <h3 className="font-display text-xl font-semibold text-fg">{role.title}</h3>
+                <p className="text-sm font-medium text-fg-muted">{role.company}</p>
+              </div>
+              <span className="font-mono text-xs uppercase tracking-widest text-fg-subtle">
+                {role.period}
+              </span>
+            </div>
+            <ul className="mt-5 grid gap-3 text-sm leading-relaxed text-fg-muted">
+              {role.bullets.map((bullet) => (
+                <li key={bullet} className="flex gap-3">
+                  <BulletArrow />
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.article>
+        ))}
+      </motion.div>
     </div>
   )
 }

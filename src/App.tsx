@@ -1,28 +1,33 @@
-// import './App.css'
-import { Header } from '@components/Header'
-import { About } from '@components/About'
-import { Experience } from '@components/Experience'
-import { Projects } from '@components/Projects'
-import { Contact } from '@components/Contact'
-import { Footer } from '@components/Footer'
+import { About } from "@components/About"
+import { Background } from "@components/Background"
+import { Contact } from "@components/Contact"
+import { Experience } from "@components/Experience"
+import { Footer } from "@components/Footer"
+import { Header } from "@components/Header"
+import { Projects } from "@components/Projects"
 
 function App() {
   return (
-    <div className="mx-auto w-full max-w-[1920px]">
-      <Header />
-      <section id="about" className="bg-zinc-50 px-4 py-12">
-        <About />
-      </section>
-      <section id="experience" className="px-4 py-12">
-        <Experience />
-      </section>
-      <section id="projects" className="bg-zinc-50 px-4 py-12">
-        <Projects />
-      </section>
-      <section id="contact" className="px-4 py-12">
-        <Contact />
-      </section>
-      <Footer />
+    <div className="relative min-h-screen bg-bg text-fg">
+      <Background />
+      <div className="relative mx-auto w-full max-w-[1920px]">
+        <Header />
+        <main>
+          <section id="about" className="scroll-mt-24 px-6 pt-16 sm:px-10 sm:pt-24 lg:px-20">
+            <About />
+          </section>
+          <section id="experience" className="scroll-mt-24 px-6 py-28 sm:px-10 sm:py-36 lg:px-20">
+            <Experience />
+          </section>
+          <section id="projects" className="scroll-mt-24 px-6 py-28 sm:px-10 sm:py-36 lg:px-20">
+            <Projects />
+          </section>
+          <section id="contact" className="scroll-mt-24 px-6 py-28 sm:px-10 sm:py-36 lg:px-20">
+            <Contact />
+          </section>
+        </main>
+        <Footer />
+      </div>
     </div>
   )
 }

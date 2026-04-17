@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion"
 
 const cursorVariants = {
   blinking: {
@@ -7,18 +7,18 @@ const cursorVariants = {
       duration: 1,
       repeat: Infinity,
       repeatDelay: 0,
-      ease: 'linear',
-      times: [0, 0.5, 0.5, 1],
-    },
-  },
+      ease: "linear",
+      times: [0, 0.5, 0.5, 1]
+    }
+  }
 }
 
 export function CursorBlinker() {
   return (
-    <motion.div
+    <motion.span
       variants={cursorVariants}
       animate="blinking"
-      className="inline-block h-5 w-[2px] translate-y-1 bg-red-500"
+      className="ml-0.5 inline-block h-4 w-[2px] translate-y-0.5 bg-accent-2 align-middle"
     />
   )
 }

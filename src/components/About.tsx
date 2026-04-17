@@ -1,91 +1,170 @@
-import AboutPhoto from '@assets/about_photo.png'
-import { CursorBlinker } from './CursorBlinker'
-import { TextSwitchingAnimation } from './TextSwitchingAnimation'
+import AboutPhoto from "@assets/about_photo.png"
+import { motion } from "framer-motion"
+import { ArrowUpRight, Download } from "lucide-react"
+import { FaGithub } from "react-icons/fa"
+import { fadeUp, stagger, viewportOnce } from "@/lib/motion"
+import { CursorBlinker } from "./CursorBlinker"
+import { TextSwitchingAnimation } from "./TextSwitchingAnimation"
+
+const SALESFORCE_SKILLS = [
+  "Salesforce Administration",
+  "Salesforce Integration",
+  "Apex",
+  "SOQL",
+  "Visualforce",
+  "Lightning Web Components",
+  "Aura Components"
+]
+
+const FULLSTACK_SKILLS = [
+  "Next.js",
+  "React",
+  "Tailwind",
+  "Node.js",
+  "Prisma",
+  "PostgreSQL",
+  "MySQL",
+  "MongoDB"
+]
+
+function SkillChips({ items }: { items: string[] }) {
+  return (
+    <ul className="flex flex-wrap gap-2">
+      {items.map((item) => (
+        <li
+          key={item}
+          className="rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-fg-muted transition hover:border-border-hover hover:text-fg"
+        >
+          {item}
+        </li>
+      ))}
+    </ul>
+  )
+}
 
 export function About() {
   return (
-    <div className="mx-auto flex w-full max-w-[900px] flex-col gap-6">
-      <div className="flex flex-col justify-between gap-4 sm:flex-row-reverse">
-        <img
-          alt="Paulo Ribeiro"
-          src={AboutPhoto}
-          className="mx-auto my-auto w-72 rounded-full sm:size-52 md:size-56 lg:size-64"
-        />
-        <div className="flex flex-col gap-2">
-          <h1 className="text-4xl font-bold">Paulo Ribeiro</h1>
-          <h2 className="text-lg font-semibold text-red-500">
+    <motion.div
+      variants={stagger}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportOnce}
+      className="mx-auto flex w-full max-w-5xl flex-col gap-20"
+    >
+      <div className="flex flex-col items-center gap-10 md:flex-row-reverse md:items-center md:justify-between md:gap-14">
+        <motion.div variants={fadeUp} className="relative shrink-0">
+          <div className="absolute -inset-3 rounded-full bg-brand-gradient opacity-30 blur-2xl" />
+          <div className="ring-gradient relative rounded-full p-[2px]">
+            <img
+              alt="Paulo Ribeiro"
+              src={AboutPhoto}
+              className="h-56 w-56 rounded-full object-cover md:h-64 md:w-64 lg:h-72 lg:w-72"
+            />
+          </div>
+        </motion.div>
+
+        <div className="flex flex-col items-center gap-5 text-center md:items-start md:text-left">
+          <motion.div
+            variants={fadeUp}
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-bg-elevated px-3 py-1 font-mono text-xs text-fg-muted"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            Available for opportunities
+          </motion.div>
+
+          <motion.h1
+            variants={fadeUp}
+            className="font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl"
+          >
+            <span className="text-fg">Paulo</span> <span className="text-gradient">Ribeiro</span>
+          </motion.h1>
+
+          <motion.p variants={fadeUp} className="font-mono text-sm text-fg-muted md:text-base">
+            <span className="text-accent-2">&gt;</span>{" "}
             <TextSwitchingAnimation
-              texts={['Full Stack Developer', 'Salesforce Developer']}
+              texts={["Full Stack Developer", "Salesforce Developer"]}
               delay={1}
             />
             <CursorBlinker />
-          </h2>
-          <p className="font-rubik text-sm leading-6 text-gray-700">
-            Hi, I&apos;m a Software Developer based in Portugal. Currently
-            working in the Salesforce ecosystem but always looking for new
-            challenges.
-            <br /> I am enthusiastic about continuously learning and evolving,
-            seeking opportunities to contribute with my skills and expertise
-            toward impactful projects that push the boundaries of innovation.
-          </p>
-          <a
-            className="mt-1 w-fit rounded-lg bg-red-500 p-3 text-left font-rubik text-sm font-medium text-white transition hover:bg-red-500/70"
-            href={'/CV.pdf'}
-            download={true}
+          </motion.p>
+
+          <motion.p
+            variants={fadeUp}
+            className="max-w-prose text-base leading-relaxed text-fg-muted"
           >
-            Download CV
-          </a>
+            Software developer based in Portugal, currently crafting solutions in the Salesforce
+            ecosystem while exploring the full stack. I care about clean architecture, thoughtful
+            interfaces, and shipping work that actually helps people.
+          </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-wrap items-center justify-center gap-3 md:justify-start"
+          >
+            <a
+              href="/CV.pdf"
+              download
+              className="group inline-flex items-center gap-2 rounded-lg bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition hover:shadow-glow"
+            >
+              Download CV
+              <Download className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+            </a>
+            <a
+              href="https://github.com/paulofr17/"
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-2 rounded-lg border border-border bg-bg-elevated px-5 py-2.5 text-sm font-semibold text-fg transition hover:border-border-hover"
+            >
+              <FaGithub className="h-4 w-4" />
+              GitHub
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          </motion.div>
         </div>
       </div>
-      <div className="space-y-2">
-        <h1 className="text-4xl font-bold">Education</h1>
-        <div className="flex flex-col gap-2">
-          <h2 className="text-lg font-semibold text-red-500">
-            Bachelor&apos;s and Master&apos;s Degree in Computer Science
-          </h2>
-          <p className="font-rubik text-sm leading-6 text-gray-700">
-            I graduated in Computer Science from the University of Minho. During
-            my academic journey, I developed a solid foundation in computer
-            science principles, including programming languages, algorithms,
+
+      <motion.div variants={fadeUp} className="grid gap-6 md:grid-cols-2">
+        <div className="flex flex-col gap-3 rounded-xl border border-border bg-bg-elevated p-6 transition hover:border-border-hover md:p-8">
+          <span className="font-mono text-xs uppercase tracking-widest text-fg-subtle">
+            Education
+          </span>
+          <h3 className="font-display text-xl font-semibold text-fg">
+            Bachelor&apos;s &amp; Master&apos;s in Computer Science
+          </h3>
+          <p className="text-sm leading-relaxed text-fg-muted">
+            University of Minho. Built a solid foundation across programming languages, algorithms,
             data structures, software engineering, and computer architecture.
           </p>
         </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <h1 className="text-4xl font-bold">Skills</h1>
-        <div className="grid grid-cols-2 gap-6">
-          <div className="flex flex-col">
-            <h2 className="mb-3 text-base font-semibold text-red-500 sm:text-lg">
-              Salesforce Development
-            </h2>
-            <ul className="flex list-inside list-disc flex-col gap-1 font-rubik text-xs text-gray-700 sm:text-sm">
-              <li>Salesforce Administration</li>
-              <li>Salesforce Integration</li>
-              <li>Apex</li>
-              <li>SOQL</li>
-              <li>Visualforce Pages</li>
-              <li>Lightning Web Components</li>
-              <li>Aura Components</li>
-            </ul>
+        <div className="flex flex-col gap-3 rounded-xl border border-border bg-bg-elevated p-6 transition hover:border-border-hover md:p-8">
+          <span className="font-mono text-xs uppercase tracking-widest text-fg-subtle">Focus</span>
+          <h3 className="font-display text-xl font-semibold text-fg">What I&apos;m working on</h3>
+          <p className="text-sm leading-relaxed text-fg-muted">
+            Shipping Salesforce solutions at Accenture by day; sharpening full-stack skills on the
+            side — Next.js, React, Prisma and everything in between.
+          </p>
+        </div>
+      </motion.div>
+
+      <motion.div variants={fadeUp} className="flex flex-col gap-6">
+        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-fg-subtle">
+          <span className="h-px w-8 bg-border" />
+          Skills
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="flex flex-col gap-4 rounded-xl border border-border bg-bg-elevated p-6 md:p-8">
+            <h3 className="font-display text-lg font-semibold text-fg">Salesforce Development</h3>
+            <SkillChips items={SALESFORCE_SKILLS} />
           </div>
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col">
-              <h2 className="mb-3 text-base font-semibold text-red-500 sm:text-lg">
-                Full Stack Development
-              </h2>
-              <ul className="flex list-inside list-disc flex-col gap-1 font-rubik text-xs text-gray-700 sm:text-sm">
-                <li>Next</li>
-                <li>React</li>
-                <li>Tailwind</li>
-                <li>NodeJS</li>
-                <li>Prisma</li>
-                <li>Relational Databases (MySQL - PostgreSQL)</li>
-                <li>NoSQL Databases (MongoDB)</li>
-              </ul>
-            </div>
+          <div className="flex flex-col gap-4 rounded-xl border border-border bg-bg-elevated p-6 md:p-8">
+            <h3 className="font-display text-lg font-semibold text-fg">Full Stack Development</h3>
+            <SkillChips items={FULLSTACK_SKILLS} />
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
 }

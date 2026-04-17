@@ -1,81 +1,69 @@
-import { motion } from 'framer-motion'
-import type { Project } from 'models/types'
-import { useEffect, useRef, useState } from 'react'
-import { AiFillGithub } from 'react-icons/ai'
-import { FaExternalLinkAlt } from 'react-icons/fa'
+import { motion } from "framer-motion"
+import type { Project } from "@models/types"
+import { AiFillGithub } from "react-icons/ai"
+import { FaExternalLinkAlt } from "react-icons/fa"
+import { fadeUp, viewportOnce } from "@/lib/motion"
 
-export function Project({
-  project,
-  index,
-}: {
-  project: Project
-  index: number
-}) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [hasScrolled, setHasScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (ref.current === null) return
-      const rect = ref.current.getBoundingClientRect()
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        setHasScrolled(true)
-        window.removeEventListener('scroll', handleScroll)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [hasScrolled])
+export function Project({ project, index }: { project: Project; index: number }) {
+  const isReversed = index % 2 === 1
 
   return (
     <motion.div
-      ref={ref}
-      initial={{ scale: 0.6, opacity: 0.6 }}
-      animate={hasScrolled ? { scale: 1, opacity: 1 } : {}}
-      transition={{ duration: 0.7 }}
-      className={`mt-6 flex flex-col-reverse gap-6 md:mt-8 ${index % 2 ? 'md:flex-row-reverse' : 'md:flex-row'}`}
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportOnce}
+      className={`flex flex-col-reverse items-center gap-8 md:gap-12 ${
+        isReversed ? "md:flex-row-reverse" : "md:flex-row"
+      }`}
     >
-      <div className="my-auto flex-1">
-        <img
-          alt={project.name}
-          src={project.image}
-          className="w-full rounded-lg"
-        />
-      </div>
-      <div className="mx-auto flex w-full max-w-md flex-col gap-3 text-pretty text-center md:max-w-sm md:justify-evenly md:gap-4">
-        <h3 className="text-xl font-semibold">{project.name}</h3>
-        <p className="pb-1 font-rubik text-sm text-gray-700">
-          {project.description}
-        </p>
-        <div className="flex justify-center gap-2 text-sm font-semibold min-[500px]:gap-4">
-          {project.technologies.map((tech) => (
-            <span key={tech}>{tech}</span>
-          ))}
+      <div className="group relative w-full flex-1">
+        <div className="absolute -inset-0.5 rounded-2xl bg-brand-gradient opacity-0 blur-md transition duration-500 group-hover:opacity-40" />
+        <div className="ring-gradient relative overflow-hidden rounded-2xl">
+          <img
+            alt={project.name}
+            src={project.image}
+            className="w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          />
         </div>
-        <div className="flex justify-center gap-3">
+      </div>
+
+      <div className="flex w-full flex-1 flex-col gap-5 text-center md:max-w-md md:text-left">
+        <span className="font-mono text-xs uppercase tracking-widest text-fg-subtle md:order-none">
+          Project 0{index + 1}
+        </span>
+        <h3 className="font-display text-2xl font-semibold text-fg md:text-3xl">{project.name}</h3>
+        <p className="text-sm leading-relaxed text-fg-muted md:text-base">{project.description}</p>
+        <ul className="flex flex-wrap justify-center gap-2 md:justify-start">
+          {project.technologies.map((tech) => (
+            <li
+              key={tech}
+              className="rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-fg-muted"
+            >
+              {tech}
+            </li>
+          ))}
+        </ul>
+        <div className="flex flex-wrap justify-center gap-3 md:justify-start">
           {project.github && (
             <a
               target="_blank"
               href={project.github}
-              className="flex items-center gap-1 rounded-md border border-black/70 px-3 py-2 font-rubik text-sm font-medium transition-colors duration-300 hover:bg-black hover:text-white"
               rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-border bg-bg-elevated px-4 py-2 text-sm font-semibold text-fg transition hover:border-border-hover"
             >
+              <AiFillGithub size={18} />
               <span>Code</span>
-              <AiFillGithub size={22} />
             </a>
           )}
           <a
             target="_blank"
             href={project.liveView}
-            className="flex items-center gap-[6px] rounded-md bg-red-500 px-3 py-2 font-rubik text-sm font-medium text-white transition-colors duration-300 hover:bg-red-400"
             rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg bg-brand-gradient px-4 py-2 text-sm font-semibold text-white shadow-glow-sm transition hover:shadow-glow"
           >
             <span>Live View</span>
-            <FaExternalLinkAlt size={14} />
+            <FaExternalLinkAlt size={12} />
           </a>
         </div>
       </div>
