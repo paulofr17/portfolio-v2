@@ -12,13 +12,24 @@ type Role = {
 const ROLES: Role[] = [
   {
     title: "Salesforce Developer",
-    company: "Accenture",
-    period: "2021 — Present",
+    company: "TCS - Tata Consultancy Services",
+    period: "2024 — Present",
     bullets: [
-      "Developing custom user interfaces with Visualforce Pages and Lightning Web Components",
-      "Writing unit tests and performing code reviews to ensure quality and stability",
-      "Implementing complex business logic, triggers, batch processes and integrations with Apex",
-      "Partnering with stakeholders to gather and translate business requirements into technical specifications"
+      "Working for a major telecommunications client, developing and maintaining their Sales Cloud implementation",
+      "Introducing new features and optimizing existing ones to enhance user experience and streamline sales processes",
+      "Working closely with multiple teams to integrate Salesforce with various external systems to ensure seamless data flow",
+      "Leading org refactoring initiatives to reduce technical debt, significantly improving code maintainability and test coverage"
+    ]
+  },
+  {
+    title: "Salesforce Developer",
+    company: "Accenture",
+    period: "2021 — 2024",
+    bullets: [
+      "Built a fully custom application from scratch leveraging the Salesforce Platform for a large-scale energy company ",
+      "Developed custom user interfaces with Visualforce Pages and Lightning Web Components",
+      "Implemented business logic, triggers, batch processes, and integrations with external systems using Apex",
+      "Partnered with stakeholders to gather and translate business requirements into technical specifications"
     ]
   },
   {

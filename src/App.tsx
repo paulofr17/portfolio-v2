@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="relative min-h-screen bg-bg text-fg">
       <Background />
-      <div className="relative mx-auto w-full max-w-[1920px]">
+      <div className="relative mx-auto w-full">
         <Header />
         <main>
           <section id="about" className="scroll-mt-24 px-6 pt-16 sm:px-10 sm:pt-24 lg:px-20">

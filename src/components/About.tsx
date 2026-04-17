@@ -7,13 +7,14 @@ import { CursorBlinker } from "./CursorBlinker"
 import { TextSwitchingAnimation } from "./TextSwitchingAnimation"
 
 const SALESFORCE_SKILLS = [
+  "Sales Cloud",
+  "Service Cloud",
+  "Experience Cloud",
   "Salesforce Administration",
   "Salesforce Integration",
   "Apex",
-  "SOQL",
-  "Visualforce",
   "Lightning Web Components",
-  "Aura Components"
+  "Agentic Development"
 ]
 
 const FULLSTACK_SKILLS = [
@@ -24,7 +25,8 @@ const FULLSTACK_SKILLS = [
   "Prisma",
   "PostgreSQL",
   "MySQL",
-  "MongoDB"
+  "MongoDB",
+  "Agentic Development"
 ]
 
 function SkillChips({ items }: { items: string[] }) {
@@ -95,9 +97,10 @@ export function About() {
             variants={fadeUp}
             className="max-w-prose text-base leading-relaxed text-fg-muted"
           >
-            Software developer based in Portugal, currently crafting solutions in the Salesforce
-            ecosystem while exploring the full stack. I care about clean architecture, thoughtful
-            interfaces, and shipping work that actually helps people.
+            I&apos;m a software developer in Portugal currently doubling down on Salesforce and
+            exploring full stack development. I focus on writing code that lasts, designing
+            thoughtful user experiences, and delivering software that makes a tangible difference in
+            someone&apos;s workday.
           </motion.p>
 
           <motion.div
@@ -135,16 +138,17 @@ export function About() {
             Bachelor&apos;s &amp; Master&apos;s in Computer Science
           </h3>
           <p className="text-sm leading-relaxed text-fg-muted">
-            University of Minho. Built a solid foundation across programming languages, algorithms,
-            data structures, software engineering, and computer architecture.
+            Built a solid foundation across programming languages, algorithms, data structures,
+            software engineering, and computer architecture.
           </p>
         </div>
         <div className="flex flex-col gap-3 rounded-xl border border-border bg-bg-elevated p-6 transition hover:border-border-hover md:p-8">
           <span className="font-mono text-xs uppercase tracking-widest text-fg-subtle">Focus</span>
           <h3 className="font-display text-xl font-semibold text-fg">What I&apos;m working on</h3>
           <p className="text-sm leading-relaxed text-fg-muted">
-            Shipping Salesforce solutions at Accenture by day; sharpening full-stack skills on the
-            side — Next.js, React, Prisma and everything in between.
+            Improving my Salesforce development skills while staying at the forefront of the AI
+            revolution. I&apos;m actively experimenting the new releases from AI leaders to rethink
+            the developer experience.
           </p>
         </div>
       </motion.div>

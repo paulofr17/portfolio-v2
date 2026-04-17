@@ -32,3 +32,13 @@ Note: `@pages` is configured but `src/pages/` does not exist yet.
 
 - ESLint extends `@rocketseat/eslint-config/react`. Prettier uses `printWidth: 100` with `prettier-plugin-tailwindcss` (Tailwind classes are auto-sorted — do not hand-order them).
 - `tsconfig.json` has `strict`, `noUnusedLocals`, and `noUnusedParameters` all on, so unused imports/vars break the build via `npm run build`.
+
+## Design system
+
+Dark-first theme with a violet→sky-blue brand gradient. Reuse the shared primitives below instead of inlining equivalents:
+
+- **Motion presets** — `fadeUp`, `stagger`, `viewportOnce` in `src/lib/motion.ts`. Import these instead of defining local Framer Motion variants.
+- **Gradient utilities** — `.text-gradient` (gradient text, in `src/index.css`) and `bg-brand-gradient` (gradient background, in `tailwind.config.js`). Don't hand-roll `bg-clip-text` recipes.
+- **Color tokens** — Semantic classes backed by HSL custom properties: `bg-bg`, `bg-bg-elevated`, `text-fg`, `text-fg-muted`, `text-fg-subtle`, `border-border`, `border-border-hover`. Avoid raw Tailwind palette classes.
+- **Fonts** — `font-display` (Space Grotesk) for headings, `font-sans` (Inter) for body, `font-mono` (JetBrains Mono) for eyebrows/labels/copyright.
+- **Page-level horizontal rules** — The header's bottom border and the footer's top border are full-bleed (applied to the outer `<header>`/`<footer>`, not inside the `max-w-5xl` container). Keep any new top-level dividers full-bleed too; within a footer/section use whitespace + typography contrast instead of a second hairline.

@@ -54,61 +54,60 @@ export function Header() {
   )
 
   return (
-    <header
-      className={`sticky top-0 z-30 mx-auto w-full max-w-[1920px] transition-all duration-300 ${
-        scrolled
-          ? "h-16 border-b border-border bg-bg-elevated/70 backdrop-blur-xl"
-          : "h-20 border-b border-transparent bg-transparent"
-      }`}
-    >
-      <div className="flex h-full items-center justify-between px-4 sm:px-10 lg:px-20">
-        <button
-          type="button"
-          onClick={scrollToSection("about")}
-          className="group flex items-center gap-2 font-display text-base font-semibold tracking-tight"
-        >
-          <span className="inline-block h-2 w-2 rounded-full bg-brand-gradient shadow-glow-sm" />
-          <span>Paulo Ribeiro</span>
-        </button>
-
-        <nav className="hidden items-center gap-1 sm:flex">
-          {NAV_ITEMS.map((item) => {
-            const isActive = activeSection === item.id
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={scrollToSection(item.id)}
-                className={`relative rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-                  isActive ? "text-fg" : "text-fg-muted hover:text-fg"
-                }`}
-              >
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full border border-border bg-surface"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className="relative">{item.label}</span>
-              </button>
-            )
-          })}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
+    <>
+      <header
+        className={`sticky top-0 z-30 w-full transition-all duration-300 ${
+          scrolled
+            ? "h-16 border-b border-border bg-bg-elevated/70 backdrop-blur-xl"
+            : "h-20 border-b border-transparent bg-transparent"
+        }`}
+      >
+        <div className="mx-auto flex h-full w-full max-w-[1920px] items-center justify-between px-4 sm:px-10 lg:px-20">
           <button
             type="button"
-            onClick={() => setSideBarOpen((prev) => !prev)}
-            aria-label="Open menu"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-fg-muted hover:text-fg sm:hidden"
+            onClick={scrollToSection("about")}
+            className="group flex items-center gap-2 font-display text-base font-semibold tracking-tight"
           >
-            <Menu className="h-4 w-4" />
+            <span className="inline-block h-2 w-2 rounded-full bg-brand-gradient shadow-glow-sm" />
+            <span>Paulo Ribeiro</span>
           </button>
+          <nav className="hidden items-center gap-1 sm:flex">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeSection === item.id
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={scrollToSection(item.id)}
+                  className={`relative rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                    isActive ? "text-fg" : "text-fg-muted hover:text-fg"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      className="absolute inset-0 rounded-full border border-border bg-surface"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative">{item.label}</span>
+                </button>
+              )
+            })}
+          </nav>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => setSideBarOpen((prev) => !prev)}
+              aria-label="Open menu"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-fg-muted hover:text-fg sm:hidden"
+            >
+              <Menu className="h-4 w-4" />
+            </button>
+          </div>
         </div>
-      </div>
-
+      </header>
       <AnimatePresence>
         {sideBarOpen && (
           <>
@@ -167,6 +166,6 @@ export function Header() {
           </>
         )}
       </AnimatePresence>
-    </header>
+    </>
   )
 }
