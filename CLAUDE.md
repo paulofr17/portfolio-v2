@@ -17,8 +17,16 @@ Single-page personal portfolio built with Vite + React 18 + TypeScript, styled w
 
 - `src/App.tsx` is the entire page: a vertical stack of `<section>` elements (`about`, `experience`, `projects`, `contact`) rendered inside a max-width container, plus `Header` and `Footer`. Navigation is in-page scrolling — there is no router.
 - `src/hooks/useSectionScroll.tsx` owns scroll-to-section behavior. It queries `document.querySelectorAll('section')` after mount and offsets scroll by 96px to clear the fixed header. The header height must stay in sync with this offset.
-- `src/models/types.ts` is the content source for the Projects section — editing the `projectsPortfolio` array is how projects are added/changed. Images are imported from `src/assets` and bundled by Vite.
-- Components in `src/components/` are flat (no nesting); `Project.tsx` is the card used by `Projects.tsx`. `TextWriting.tsx`, `TextSwitchingAnimation.tsx`, and `CursorBlinker.tsx` are the typewriter/animation primitives used in the hero.
+- `src/models/types.ts` is the content source for the Projects section — editing the `projectsPortfolio` array is how projects are added/changed. Each project has a `slug` that matches its folder name under `src/assets/projects/<slug>/`. Images are auto-loaded per folder via Vite's `import.meta.glob` (eager) — no manual imports. Ordering is filename-sorted with numeric awareness (`v2` before `v10`); prefix with `NN-` for explicit order.
+- Components in `src/components/` are flat (no nesting); `Project.tsx` is the card used by `Projects.tsx` and mounts `Lightbox.tsx` for the fullscreen image gallery. `TextWriting.tsx`, `TextSwitchingAnimation.tsx`, and `CursorBlinker.tsx` are the typewriter/animation primitives used in the hero.
+
+### Project gallery / Lightbox
+
+- Clicking a project card image opens `Lightbox.tsx` — a portal-based (`createPortal(..., document.body)`) fullscreen modal with glass backdrop, keyboard nav (Esc / ← / →), focus trap, scroll lock, swipe gesture (Framer Motion `drag`), dash progress indicator, and ARIA dialog semantics.
+- State is owned per `Project` card (local `useState`); `Projects.tsx` stays stateless.
+- Navigation loops (wrap around). Single-image projects automatically hide nav buttons, progress dashes, and swipe.
+- Respects `useReducedMotion()` — falls back to opacity-only transitions.
+- Adding images to a project: drop files into `src/assets/projects/<slug>/`. No code change required.
 
 ## Path aliases
 
@@ -37,7 +45,7 @@ Note: `@pages` is configured but `src/pages/` does not exist yet.
 
 Dark-first theme with a violet→sky-blue brand gradient. Reuse the shared primitives below instead of inlining equivalents:
 
-- **Motion presets** — `fadeUp`, `stagger`, `viewportOnce` in `src/lib/motion.ts`. Import these instead of defining local Framer Motion variants.
+- **Motion presets** — `fadeUp`, `fadeIn`, `stagger`, `viewportOnce`, and the `ease` tuple `[0.22, 1, 0.36, 1]` in `src/lib/motion.ts`. Import these instead of defining local Framer Motion variants or re-declaring the easing curve.
 - **Gradient utilities** — `.text-gradient` (gradient text, in `src/index.css`) and `bg-brand-gradient` (gradient background, in `tailwind.config.js`). Don't hand-roll `bg-clip-text` recipes.
 - **Color tokens** — Semantic classes backed by HSL custom properties: `bg-bg`, `bg-bg-elevated`, `text-fg`, `text-fg-muted`, `text-fg-subtle`, `border-border`, `border-border-hover`. Avoid raw Tailwind palette classes.
 - **Fonts** — `font-display` (Space Grotesk) for headings, `font-sans` (Inter) for body, `font-mono` (JetBrains Mono) for eyebrows/labels/copyright.

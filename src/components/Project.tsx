@@ -1,11 +1,14 @@
 import { motion } from "framer-motion"
+import { useState } from "react"
 import type { Project } from "@models/types"
 import { AiFillGithub } from "react-icons/ai"
 import { FaExternalLinkAlt } from "react-icons/fa"
 import { fadeUp, viewportOnce } from "@/lib/motion"
+import { Lightbox } from "@components/Lightbox"
 
 export function Project({ project, index }: { project: Project; index: number }) {
   const isReversed = index % 2 === 1
+  const [lightboxOpen, setLightboxOpen] = useState(false)
 
   return (
     <motion.div
@@ -17,16 +20,21 @@ export function Project({ project, index }: { project: Project; index: number })
         isReversed ? "md:flex-row-reverse" : "md:flex-row"
       }`}
     >
-      <div className="group relative w-full flex-1">
-        <div className="absolute -inset-0.5 rounded-2xl bg-brand-gradient opacity-0 blur-md transition duration-500 group-hover:opacity-40" />
+      <button
+        type="button"
+        onClick={() => setLightboxOpen(true)}
+        aria-label={`Open ${project.name} gallery`}
+        className="group relative block w-full flex-1 cursor-zoom-in rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      >
+        <div className="absolute -inset-0.5 rounded-2xl bg-brand-gradient opacity-0 blur-md transition duration-500 group-hover:opacity-80" />
         <div className="ring-gradient relative overflow-hidden rounded-2xl">
           <img
             alt={project.name}
-            src={project.image}
-            className="w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            src={project.images[0]}
+            className="w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           />
         </div>
-      </div>
+      </button>
 
       <div className="flex w-full flex-1 flex-col gap-5 text-center md:max-w-md md:text-left">
         <span className="font-mono text-xs uppercase tracking-widest text-fg-subtle md:order-none">
@@ -67,6 +75,14 @@ export function Project({ project, index }: { project: Project; index: number })
           </a>
         </div>
       </div>
+
+      <Lightbox
+        images={project.images}
+        initialIndex={0}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        projectName={project.name}
+      />
     </motion.div>
   )
 }
